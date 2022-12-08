@@ -59,7 +59,7 @@ def user_input_features():
     ctr_threshold = st.sidebar.slider('CTR Threshold', 0.0,1.0,0.0)
     sv_threshold = st.sidebar.slider('Total Search Volume Threshold', 0,10000,0)
     prod_ct_threshold = st.sidebar.slider('Product Count Threshold', 5,100,0)
-    Relevance_threshold = st.sidebar.slider('Relevance Scores Threshold', 0.0,1.0,0.0)
+    Relevance_threshold = st.sidebar.slider('Relevance Score Threshold', 0.0,1.0,0.0)
     
     
     
@@ -103,10 +103,10 @@ df_keyword = df_hvsp[(df_hvsp['keyword'] == keyword_selected)]
 
 str1 = "- Number of products:" + "   **" + str(df_keyword['product_count'].values[0]) + "**"
 str2 = "- Total Search Volume:" + "   **" +  str(df_keyword['Total_Search_Volume'].values[0]) + "**"
-str3 = "- Page Relevance Score:" + "   **" +  str(df_keyword['relevance_score'].values[0]) + "**"
+str3 = "- Relevance Score:" + "   **" +  str(df_keyword['relevance_score'].values[0]) + "**"
 str4 = "- Click Through Rate:" + "   **" +  str(df_keyword['CTR'].values[0]) + "**"
-str5 = "- Keywords included:" + "  " + str(df_keyword['Keywords (in the same cluster)'].values[0])
-str6 = "- Highest Search Volume:" + "   **" +  str(df_keyword['Highest_Search_Volume'].values[0]) + "**"
+str5 = "- Keywords in the same cluster:" + "  " + str(df_keyword['Keywords (in the same cluster)'].values[0])
+str6 = "- Keyword SV:" + "   **" +  str(df_keyword['keyword sv'].values[0]) + "**"
 
 # make any grid with a function
 def make_grid(cols,rows):
@@ -247,7 +247,7 @@ with fig_col1:
 
 with fig_col2:
     st.markdown("#### Boxplot of Highest Search Volume")
-    fig2 = px.box(data, y="Highest_Search_Volume")
+    fig2 = px.box(data, y="keyword sv")
     st.write(fig2)    
     
 
