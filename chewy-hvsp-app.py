@@ -103,7 +103,7 @@ df_keyword = df_hvsp[(df_hvsp['keyword'] == keyword_selected)]
 
 str1 = "- Number of products:" + "   **" + str(df_keyword['product_count'].values[0]) + "**"
 str2 = "- Total Search Volume:" + "   **" +  str(df_keyword['Total_Search_Volume'].values[0]) + "**"
-str3 = "- Average Relevance Score:" + "   **" +  str(df_keyword['relevance_score'].values[0]) + "**"
+str3 = "- Page Relevance Score:" + "   **" +  str(df_keyword['relevance_score'].values[0]) + "**"
 str4 = "- Click Through Rate:" + "   **" +  str(df_keyword['CTR'].values[0]) + "**"
 str5 = "- Keywords included:" + "  " + str(df_keyword['Keywords (in the same cluster)'].values[0])
 str6 = "- Highest Search Volume:" + "   **" +  str(df_keyword['Highest_Search_Volume'].values[0]) + "**"
