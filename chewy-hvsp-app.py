@@ -276,12 +276,12 @@ with fig_col2:
 fig_col1, fig_col2 = st.columns(2)
 
 with fig_col1:
-    st.markdown("#### Numbber of Pages by Product Counts")
+    st.markdown("#### Number of Pages by Product Counts")
     fig1 = px.histogram(data_frame=data, x="product_count")
     st.write(fig1)
    
 with fig_col2:
-    st.markdown("#### Numbber of Pages by Relevance")
+    st.markdown("#### Number of Pages by Relevance")
     fig2 = px.histogram(data_frame=data, x="relevance_score")
     st.write(fig2)    
     
