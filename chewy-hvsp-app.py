@@ -35,7 +35,7 @@ filename = "ahaha.csv"
 # Keywords
 # Chewy_URL
 # Total_Search_Volume
-# avg_relevance
+# relevance_score
 # CTR
 # product_count
 
@@ -103,9 +103,9 @@ df_keyword = df_hvsp[(df_hvsp['keyword'] == keyword_selected)]
 
 str1 = "- Number of products:" + "   **" + str(df_keyword['product_count'].values[0]) + "**"
 str2 = "- Total Search Volume:" + "   **" +  str(df_keyword['Total_Search_Volume'].values[0]) + "**"
-str3 = "- Average Relevance Score:" + "   **" +  str(df_keyword['avg_relevance'].values[0]) + "**"
+str3 = "- Average Relevance Score:" + "   **" +  str(df_keyword['relevance_score'].values[0]) + "**"
 str4 = "- Click Through Rate:" + "   **" +  str(df_keyword['CTR'].values[0]) + "**"
-str5 = "- Keywords included:" + "  " + str(df_keyword['Keywords'].values[0])
+str5 = "- Keywords included:" + "  " + str(df_keyword['Keywords (in the same cluster)'].values[0])
 str6 = "- Highest Search Volume:" + "   **" +  str(df_keyword['Highest_Search_Volume'].values[0]) + "**"
 
 # make any grid with a function
@@ -170,7 +170,7 @@ kpi4.metric(
 # Apply filters
 st.subheader('All keywords satisfy the selected thresholds:')
 
-data = df_hvsp[(df_hvsp['CTR']>=ctr_threshold) & (df_hvsp['Total_Search_Volume']>=sv_threshold) & (df_hvsp['product_count']>=prod_ct_threshold) & (df_hvsp['avg_relevance']>=Relevance_threshold)] 
+data = df_hvsp[(df_hvsp['CTR']>=ctr_threshold) & (df_hvsp['Total_Search_Volume']>=sv_threshold) & (df_hvsp['product_count']>=prod_ct_threshold) & (df_hvsp['relevance_score']>=Relevance_threshold)] 
 
 # Sort by selected columns
 if sort_ctr:
@@ -183,7 +183,7 @@ if sort_sv:
     
 if sort_rs:
     #st.write("Sort by Relevance Scores")
-    data.sort_values(by = ['avg_relevance'], ascending = [False]) 
+    data.sort_values(by = ['relevance_score'], ascending = [False]) 
     
 if sort_pc:
     #st.write("Sort by Product Count")
@@ -234,7 +234,7 @@ with fig_col1:
 
 with fig_col2:
     st.markdown("#### Boxplot of Relevance")
-    fig2 = px.box(data, y="avg_relevance")
+    fig2 = px.box(data, y="relevance_score")
     st.write(fig2)
     
     
@@ -259,7 +259,7 @@ fig_col1, fig_col2 = st.columns(2)
 with fig_col1:
     st.markdown("#### CTR vs. Relevance")
     fig1 = px.scatter(
-        data_frame=data, y="avg_relevance", x="CTR"
+        data_frame=data, y="relevance_score", x="CTR"
     )
     st.write(fig1)
     
@@ -282,7 +282,7 @@ with fig_col1:
    
 with fig_col2:
     st.markdown("#### Numbber of Pages by Relevance")
-    fig2 = px.histogram(data_frame=data, x="avg_relevance")
+    fig2 = px.histogram(data_frame=data, x="relevance_score")
     st.write(fig2)    
     
 
