@@ -59,7 +59,7 @@ def user_input_features():
     ctr_threshold = st.sidebar.slider('CTR Threshold', 0.0,1.0,0.0)
     sv_threshold = st.sidebar.slider('Total Search Volume Threshold', 0,10000,0)
     prod_ct_threshold = st.sidebar.slider('Product Count Threshold', 5,100,0)
-    Relevance_threshold = st.sidebar.slider('Relevance Score Threshold', 0.0,1.0,0.0)
+    Relevance_threshold = st.sidebar.slider('Relevance Score Threshold', 0,10,0)
     
     
     
