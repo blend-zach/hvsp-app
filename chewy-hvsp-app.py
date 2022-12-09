@@ -5,7 +5,7 @@ import os
 from sklearn import metrics
 from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode
 import plotly.express as px
-
+import json
 
 st.set_page_config(
     page_title="Chewy HVSP Opportunities",
@@ -42,6 +42,7 @@ filename = "ahaha.csv"
 
 hvsp_file = data_path + filename
 df_hvsp = pd.read_csv(filename)
+all_kw = df_hvsp['keyword'].unique().tolist()
 
 keyword_list = df_hvsp.keyword.unique()
 #st.write(keyword_list)
@@ -74,7 +75,7 @@ def user_input_features():
     
     features = pd.DataFrame(data, index=[0])
     return features
-    
+
 input_df = user_input_features()
 
 st.sidebar.markdown("""---""")
@@ -191,7 +192,6 @@ if sort_pc:
 
 #st.table(data)    
 
-
 # PART 3: Show the dataframe
 gb = GridOptionsBuilder.from_dataframe(data)
 gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
@@ -209,15 +209,13 @@ grid_response = AgGrid(
     enable_enterprise_modules=True,
     height=350, 
     width='100%',
-    reload_data=True
+    # reload_data=True
 )
 
 data = grid_response['data']
 selected = grid_response['selected_rows'] 
  
 df = pd.DataFrame(selected) #Pass the selected rows to a new dataframe df
-
-
 
 
 # PART 4: Some charts and stats
@@ -291,7 +289,17 @@ with fig_col2:
 # st.write(df)
 
 
-# PART 5: Write the new results to jason file for production. ------------- to do 
+# PART 5: Write the new results to jason file for production. ------------- to do
+if df.shape[0] > 0:
+    output_candidate = df['keyword'].unique().tolist()
+    output_file = {k:'true' for k in output_candidate}
+    json_string = json.dumps(output_file)
+    st.download_button('Download JSON output', json_string, 'data.json')
+else:
+    x = {}
+    json_string = json.dumps(x)
+    st.download_button('Download JSON output', json_string, 'data.json')
+
 if st.sidebar.button('Save Results'):
     data.to_json("hvsp_json")
     st.sidebar.write('Json file is saved successfully!')
