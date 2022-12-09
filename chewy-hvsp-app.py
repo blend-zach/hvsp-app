@@ -80,11 +80,11 @@ input_df = user_input_features()
 
 st.sidebar.markdown("""---""")
 
-st.sidebar.write("Sort results by:")    
-sort_ctr = st.sidebar.checkbox('Click Through Rate')
-sort_sv = st.sidebar.checkbox('Total Search Volume')
-sort_rs = st.sidebar.checkbox('Relevance Scores')
-sort_pc = st.sidebar.checkbox('Product Count')
+# st.sidebar.write("Sort results by:")    
+# sort_ctr = st.sidebar.checkbox('Click Through Rate')
+# sort_sv = st.sidebar.checkbox('Total Search Volume')
+# sort_rs = st.sidebar.checkbox('Relevance Scores')
+# sort_pc = st.sidebar.checkbox('Product Count')
 
 st.sidebar.markdown("""---""")
 
@@ -173,22 +173,22 @@ st.subheader('All keywords satisfy the selected thresholds:')
 
 data = df_hvsp[(df_hvsp['CTR']>=ctr_threshold) & (df_hvsp['Total_Search_Volume']>=sv_threshold) & (df_hvsp['product_count']>=prod_ct_threshold) & (df_hvsp['relevance_score']>=Relevance_threshold)] 
 
-# Sort by selected columns
-if sort_ctr:
-    #st.write("Sort by CTR")
-    data.sort_values(by = ['CTR'], ascending = [False])
+# # Sort by selected columns
+# if sort_ctr:
+#     #st.write("Sort by CTR")
+#     data.sort_values(by = ['CTR'], ascending = [False])
     
-if sort_sv:
-    #st.write("Sort by Total_Search_Volume")
-    data.sort_values(by = ['Total_Search_Volume'], ascending = [False])  
+# if sort_sv:
+#     #st.write("Sort by Total_Search_Volume")
+#     data.sort_values(by = ['Total_Search_Volume'], ascending = [False])  
     
-if sort_rs:
-    #st.write("Sort by Relevance Scores")
-    data.sort_values(by = ['relevance_score'], ascending = [False]) 
+# if sort_rs:
+#     #st.write("Sort by Relevance Scores")
+#     data.sort_values(by = ['relevance_score'], ascending = [False]) 
     
-if sort_pc:
-    #st.write("Sort by Product Count")
-    data.sort_values(by = ['product_count'], ascending = [False]) 
+# if sort_pc:
+#     #st.write("Sort by Product Count")
+#     data.sort_values(by = ['product_count'], ascending = [False]) 
 
 #st.table(data)    
 
@@ -197,7 +197,9 @@ gb = GridOptionsBuilder.from_dataframe(data)
 gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
 gb.configure_side_bar() #Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
+gb.configure_column("keyword", header_name="keyword", editable=True)
 gridOptions = gb.build()
+
 
 grid_response = AgGrid(
     data,
