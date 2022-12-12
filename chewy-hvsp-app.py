@@ -27,7 +27,7 @@ By adjusting thresholds, you can choose the HVSP candidates that meet your minim
 
 # Read CSV data
 data_path =".\data/"
-filename = "ahaha.csv"
+filename = "hvsp_run4.csv"
 
 # --Column names
 # keyword
@@ -42,6 +42,7 @@ filename = "ahaha.csv"
 
 hvsp_file = data_path + filename
 df_hvsp = pd.read_csv(filename)
+df_hvsp['CTR'] = df_hvsp['CTR'].fillna(-0.01)
 all_kw = df_hvsp['keyword'].unique().tolist()
 
 keyword_list = df_hvsp.keyword.unique()
@@ -57,7 +58,7 @@ def user_input_features():
     keyword_selected = st.sidebar.selectbox('keyword',keyword_list)    
     #st.sidebar.write(keyword_selected)
     
-    ctr_threshold = st.sidebar.slider('CTR Threshold', 0.0,1.0,0.0)
+    ctr_threshold = st.sidebar.slider('CTR Threshold', -0.01,1.0,-0.01)
     sv_threshold = st.sidebar.slider('Total Search Volume Threshold', 0,10000,0)
     prod_ct_threshold = st.sidebar.slider('Product Count Threshold', 5,100,0)
     Relevance_threshold = st.sidebar.slider('Relevance Score Threshold', 0,10,0)
@@ -161,12 +162,6 @@ kpi4.metric(
     label="Click Through Rate #",
     value=ctr_threshold,
 )
-
-
-
-
-
-
 
 # Apply filters
 st.subheader('All keywords satisfy the selected thresholds:')
