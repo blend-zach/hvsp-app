@@ -292,7 +292,7 @@ with fig_col2:
 
 # PART 5: Write the new results to jason file for production. ------------- to do
 if df.shape[0] > 0:
-    output_candidate = df['revised_keyword'].unique().tolist()
+    output_candidate = df['keyword'].unique().tolist()
     output_file = {k:'true' for k in output_candidate}
     json_string = json.dumps(output_file)
     st.download_button('Download JSON output', json_string, 'data.json')
