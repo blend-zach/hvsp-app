@@ -27,7 +27,7 @@ By adjusting thresholds, you can choose the HVSP candidates that meet your minim
 
 # Read CSV data
 data_path =".\data/"
-filename = "hvsp_run4.csv"
+filename = "hvsp_run5.csv"
 
 # --Column names
 # keyword
@@ -42,6 +42,7 @@ filename = "hvsp_run4.csv"
 
 hvsp_file = data_path + filename
 df_hvsp = pd.read_csv(filename)
+# df_hvsp = pd.read_csv("~/Downloads/hvsp_run_with_revision (1).csv")
 df_hvsp['CTR'] = df_hvsp['CTR'].fillna(-0.01)
 all_kw = df_hvsp['keyword'].unique().tolist()
 
@@ -192,7 +193,8 @@ gb = GridOptionsBuilder.from_dataframe(data)
 gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
 gb.configure_side_bar() #Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
-gb.configure_column("keyword", header_name="keyword", editable=True)
+gb.configure_column("keyword_", header_name="revised_keyword", editable=True)
+gb.configure_column("revised_keyword", editable=True)
 gridOptions = gb.build()
 
 
@@ -288,7 +290,7 @@ with fig_col2:
 
 # PART 5: Write the new results to jason file for production. ------------- to do
 if df.shape[0] > 0:
-    output_candidate = df['keyword'].unique().tolist()
+    output_candidate = df['revised_keyword'].unique().tolist()
     output_file = {k:'true' for k in output_candidate}
     json_string = json.dumps(output_file)
     st.download_button('Download JSON output', json_string, 'data.json')
