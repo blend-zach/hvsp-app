@@ -194,9 +194,7 @@ gb.configure_pagination(paginationAutoPageSize=True) #Add pagination
 gb.configure_side_bar() #Add a sidebar
 gb.configure_selection('multiple', use_checkbox=True, groupSelectsChildren="Group checkbox select children") #Enable multi-row selection
 # gb.configure_column("keyword_", header_name="revised_keyword", editable=False)
-# gb.configure_column("keyword", editable=True)
-# gb.configure_column("keyword_", header_name="revised_keyword", editable=False)
-gb.configure_column("revised_keyword", editable=True)
+gb.configure_column("keyword", editable=True)
 gridOptions = gb.build()
 
 
